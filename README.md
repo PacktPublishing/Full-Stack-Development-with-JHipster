@@ -22,7 +22,7 @@ entity Product {
 enum Size {
      S, M, L, XL, XXL
 }
-     entity ProductCategory {
+entity ProductCategory {
      name String required
      description String
 }
