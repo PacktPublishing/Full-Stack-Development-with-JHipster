@@ -7,7 +7,7 @@ All of the code is organized into folders. Each folder starts with a number foll
 
 All code files are placed in their respective folders.
 
-Chapters 1, 2, and 14 do not contain code files.
+Chapters 1, 2, 8, and 14 do not contain code files.
 
 
 The code will look like the following:
