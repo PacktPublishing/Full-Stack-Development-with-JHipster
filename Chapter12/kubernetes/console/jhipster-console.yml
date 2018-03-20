@@ -1,0 +1,33 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: jhipster-console
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: jhipster-console
+    spec:
+      containers:
+      - image: jhipster/jhipster-console:v3.0.1
+        name: jhipster-console
+        ports:
+        - containerPort: 5601
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jhipster-console
+  namespace: default
+  labels:
+    app: jhipster-console
+spec:
+  ports:
+  - name: "5601"
+    port: 5601
+    targetPort: 5601
+  selector:
+    app: jhipster-console

@@ -1,0 +1,45 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: gateway-mysql
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: gateway-mysql
+    spec:
+      volumes:
+      - name: data
+        emptyDir: {}
+      containers:
+      - name: mysql
+        image: mysql:5.7.20
+        env:
+        - name: MYSQL_USER
+          value: root
+        - name: MYSQL_ALLOW_EMPTY_PASSWORD
+          value: 'yes'
+        - name: MYSQL_DATABASE
+          value: gateway
+#        command:
+#        - mysqld
+#        - --lower_case_table_names=1
+#        - --skip-ssl
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+        - name: data
+          mountPath: /var/lib/mysql/
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gateway-mysql
+  namespace: default
+spec:
+  selector:
+    app: gateway-mysql
+  ports:
+  - port: 3306

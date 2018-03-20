@@ -1,0 +1,31 @@
+{
+    "gatewayApp": {
+        "invoice" : {
+            "home": {
+                "title": "Invoices",
+                "createLabel": "Create a new Invoice",
+                "createOrEditLabel": "Create or edit a Invoice"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Invoice {{ id }}?"
+            },
+            "detail": {
+                "title": "Invoice"
+            },
+            "date": "Date",
+            "details": "Details",
+            "status": "Status",
+            "paymentMethod": "Payment Method",
+            "paymentDate": "Payment Date",
+            "paymentAmount": "Payment Amount",
+            "shipment": "Shipment"
+        }
+    },
+    "invoiceApp": {
+        "invoice" : {
+            "created": "A new Invoice is created with identifier {{ param }}",
+            "updated": "A Invoice is updated with identifier {{ param }}",
+            "deleted": "A Invoice is deleted with identifier {{ param }}"
+        }
+    }
+}

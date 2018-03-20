@@ -1,0 +1,30 @@
+entity Invoice {
+	date Instant required
+    details String
+    status InvoiceStatus required
+  	paymentMethod PaymentMethod required
+    paymentDate Instant required
+    paymentAmount BigDecimal required
+}
+
+enum InvoiceStatus {
+	PAID, ISSUED, CANCELLED
+}
+
+entity Shipment {
+	trackingCode String
+    date Instant required
+    details String
+}
+
+enum PaymentMethod {
+	CREDIT_CARD, CASH_ON_DELIVERY, PAYPAL
+}
+
+relationship OneToMany {
+	 Invoice{shipment} to Shipment{invoice}
+}
+
+service * with serviceClass
+paginate Invoice, Shipment with pagination
+microservice Invoice, Shipment with Invoice

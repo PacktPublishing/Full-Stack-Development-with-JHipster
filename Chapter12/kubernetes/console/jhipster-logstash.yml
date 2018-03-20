@@ -1,0 +1,48 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: jhipster-logstash
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: jhipster-logstash
+    spec:
+      containers:
+      - args:
+        - logstash
+        - -f
+        - /conf/logstash.conf
+        image: jhipster/jhipster-logstash:v3.0.1
+        name: jhipster-logstash
+        ports:
+        - containerPort: 5000
+          protocol: UDP
+        resources: {}
+        volumeMounts:
+          - name: config-volume
+            mountPath: /conf/
+      restartPolicy: Always
+      volumes:
+        - name: config-volume
+          configMap:
+            name: logstash-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jhipster-logstash
+  namespace: default
+  labels:
+    app: jhipster-logstash
+spec:
+  ports:
+  - name: "5000"
+    port: 5000
+    protocol: UDP
+    targetPort: 5000
+  selector:
+    app: jhipster-logstash
+

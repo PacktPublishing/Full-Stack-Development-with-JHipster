@@ -1,0 +1,97 @@
+/* Online fashion store */
+
+/** Product sold by the Online store */
+entity Product {
+    name String required
+    description String
+    price BigDecimal required min(0)
+    size Size required
+    image ImageBlob
+}
+
+enum Size {
+    S, M, L, XL, XXL
+}
+
+entity ProductCategory {
+    name String required
+    description String
+}
+
+entity Customer {
+    firstName String required
+    lastName String required
+    gender Gender required
+    email String required pattern(/^[^@\s]+@[^@\s]+\.[^@\s]+$/)
+    phone String required
+    addressLine1 String required
+    addressLine2 String
+    city String required
+    country String required
+}
+
+enum Gender {
+    MALE, FEMALE, OTHER
+}
+
+entity ProductOrder {
+    placedDate Instant required
+    status OrderStatus required
+    code String required
+}
+
+enum OrderStatus {
+    COMPLETED, PENDING, CANCELLED
+}
+
+entity OrderItem {
+    quantity Integer required min(0)
+    totalPrice BigDecimal required min(0)
+    status OrderItemStatus required
+}
+
+enum OrderItemStatus {
+    AVAILABLE, OUT_OF_STOCK, BACK_ORDER
+}
+
+entity Invoice {
+    date Instant required
+    details String
+    status InvoiceStatus required
+    paymentMethod PaymentMethod required
+    paymentDate Instant required
+    paymentAmount BigDecimal required
+}
+
+enum InvoiceStatus {
+    PAID, ISSUED, CANCELLED
+}
+
+enum PaymentMethod {
+    CREDIT_CARD, CASH_ON_DELIVERY, PAYPAL
+}
+
+entity Shipment {
+    trackingCode String
+    date Instant required
+    details String
+}
+
+relationship OneToOne {
+    Customer{user} to User
+}
+
+relationship ManyToOne {
+	OrderItem{product} to Product
+}
+
+relationship OneToMany {
+   Customer{order} to ProductOrder{customer},
+   ProductOrder{orderItem} to OrderItem{order},
+   ProductOrder{invoice} to Invoice{order},
+   Invoice{shipment} to Shipment{invoice},
+   ProductCategory{product} to Product{productCategory}
+}
+
+service * with serviceClass
+paginate Product, Customer, ProductOrder, Invoice, Shipment, OrderItem with pagination

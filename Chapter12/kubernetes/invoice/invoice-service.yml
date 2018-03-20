@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: invoice
+  namespace: default
+  labels:
+    app: invoice
+spec:
+  selector:
+    app: invoice
+  ports:
+  - name: web
+    port: 8081

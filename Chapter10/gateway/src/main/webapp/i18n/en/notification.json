@@ -1,0 +1,30 @@
+{
+    "gatewayApp": {
+        "notification" : {
+            "home": {
+                "title": "Notifications",
+                "createLabel": "Create a new Notification",
+                "createOrEditLabel": "Create or edit a Notification"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Notification {{ id }}?"
+            },
+            "detail": {
+                "title": "Notification"
+            },
+            "date": "Date",
+            "details": "Details",
+            "sentDate": "Sent Date",
+            "format": "Format",
+            "userId": "User Id",
+            "productId": "Product Id"
+        }
+    },
+    "notificationTypeApp": {
+        "notification" : {
+            "created": "A new Notification is created with identifier {{ param }}",
+            "updated": "A Notification is updated with identifier {{ param }}",
+            "deleted": "A Notification is deleted with identifier {{ param }}"
+        }
+    }
+}

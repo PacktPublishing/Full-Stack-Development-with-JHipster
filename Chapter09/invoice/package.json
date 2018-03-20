@@ -1,0 +1,16 @@
+{
+  "name": "invoice",
+  "version": "0.0.0",
+  "description": "Description for invoice",
+  "private": true,
+  "license": "UNLICENSED",
+  "cacheDirectories": [
+    "node_modules"
+  ],
+  "devDependencies": {
+    "generator-jhipster": "4.13.2"
+  },
+  "engines": {
+    "node": ">=6.9.0"
+  }
+}

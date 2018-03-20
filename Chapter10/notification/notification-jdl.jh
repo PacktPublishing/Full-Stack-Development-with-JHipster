@@ -1,0 +1,15 @@
+entity Notification {
+	date Instant required
+    details String
+    sentDate Instant required
+    format NotificationType required
+    userId Long required
+    productId Long required
+}
+
+enum NotificationType {
+	EMAIL, SMS, PARCEL
+}
+
+service * with serviceClass
+microservice Notification, NotificationType with Notification
