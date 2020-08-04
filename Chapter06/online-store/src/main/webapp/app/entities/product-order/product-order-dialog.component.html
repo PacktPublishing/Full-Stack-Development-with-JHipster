@@ -1,0 +1,80 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myProductOrderLabel" jhiTranslate="storeApp.productOrder.home.createOrEditLabel">Create or edit a Product Order</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!productOrder.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="productOrder.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="storeApp.productOrder.placedDate" for="field_placedDate">Placed Date</label>
+            <div class="d-flex">
+                <input id="field_placedDate" type="datetime-local" class="form-control" name="placedDate" [(ngModel)]="productOrder.placedDate"
+                required/>
+            </div>
+            <div [hidden]="!(editForm.controls.placedDate?.dirty && editForm.controls.placedDate?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.placedDate?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.placedDate?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="storeApp.productOrder.status" for="field_status">Status</label>
+            <select class="form-control" name="status" [(ngModel)]="productOrder.status" id="field_status"  required>
+                <option value="COMPLETED">{{'storeApp.OrderStatus.COMPLETED' | translate}}</option>
+                <option value="PENDING">{{'storeApp.OrderStatus.PENDING' | translate}}</option>
+                <option value="CANCELLED">{{'storeApp.OrderStatus.CANCELLED' | translate}}</option>
+            </select>
+            <div [hidden]="!(editForm.controls.status?.dirty && editForm.controls.status?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.status?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="storeApp.productOrder.code" for="field_code">Code</label>
+            <input type="text" class="form-control" name="code" id="field_code"
+                [(ngModel)]="productOrder.code" required/>
+            <div [hidden]="!(editForm.controls.code?.dirty && editForm.controls.code?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.code?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="storeApp.productOrder.customer" for="field_customer">Customer</label>
+            <select class="form-control" id="field_customer" name="customer" [(ngModel)]="productOrder.customer"  required>
+                <option *ngIf="!editForm.value.customer" [ngValue]="null" selected></option>
+                <option [ngValue]="customerOption.id === productOrder.customer?.id ? productOrder.customer : customerOption" *ngFor="let customerOption of customers; trackBy: trackCustomerById">{{customerOption.email}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.customer?.dirty && editForm.controls.customer?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.customer?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

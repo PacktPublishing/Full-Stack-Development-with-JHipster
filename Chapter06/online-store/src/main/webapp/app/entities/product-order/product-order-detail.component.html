@@ -1,0 +1,40 @@
+
+<div *ngIf="productOrder">
+    <h2><span jhiTranslate="storeApp.productOrder.detail.title">Product Order</span> {{productOrder.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="storeApp.productOrder.placedDate">Placed Date</span></dt>
+        <dd>
+            <span>{{productOrder.placedDate | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="storeApp.productOrder.status">Status</span></dt>
+        <dd>
+            <span jhiTranslate="{{'storeApp.OrderStatus.' + productOrder.status}}">{{productOrder.status}}</span>
+        </dd>
+        <dt><span jhiTranslate="storeApp.productOrder.code">Code</span></dt>
+        <dd>
+            <span>{{productOrder.code}}</span>
+        </dd>
+        <dt><span jhiTranslate="storeApp.productOrder.customer">Customer</span></dt>
+        <dd>
+            <div *ngIf="productOrder.customer">
+                <a [routerLink]="['/customer', productOrder.customer?.id]">{{productOrder.customer?.email}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'product-order/'+ productOrder.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

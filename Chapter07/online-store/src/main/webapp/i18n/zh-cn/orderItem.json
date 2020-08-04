@@ -1,0 +1,26 @@
+
+{
+    "storeApp": {
+        "orderItem" : {
+            "home": {
+                "title": "Order Items",
+                "createLabel": "创建新 Order Item",
+                "createOrEditLabel": "创建或编辑 Order Item"
+            },
+            "created": "Order Item {{ param }} 创建成功",
+            "updated": "Order Item {{ param }} 更新成功",
+            "deleted": "Order Item {{ param }} 删除成功",
+            "delete": {
+                "question": "你确定要删除 Order Item {{ id }} 吗？"
+            },
+            "detail": {
+                "title": "Order Item"
+            },
+            "quantity": "Quantity",
+            "totalPrice": "Total Price",
+            "status": "Status",
+            "product": "Product",
+            "order": "Order"
+        }
+    }
+}

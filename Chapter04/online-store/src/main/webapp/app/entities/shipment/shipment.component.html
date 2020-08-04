@@ -1,0 +1,76 @@
+<div>
+    <h2>
+        <span jhiTranslate="storeApp.shipment.home.title">Shipments</span>
+        <button class="btn btn-primary float-right jh-create-entity create-shipment" [routerLink]="['/', { outlets: { popup: ['shipment-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="storeApp.shipment.home.createLabel">
+            Create new Shipment
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="shipments">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="trackingCode"><span jhiTranslate="storeApp.shipment.trackingCode">Tracking Code</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="date"><span jhiTranslate="storeApp.shipment.date">Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="details"><span jhiTranslate="storeApp.shipment.details">Details</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="invoice.id"><span jhiTranslate="storeApp.shipment.invoice">Invoice</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let shipment of shipments ;trackBy: trackId">
+                <td><a [routerLink]="['../shipment', shipment.id ]">{{shipment.id}}</a></td>
+                <td>{{shipment.trackingCode}}</td>
+                <td>{{shipment.date | date:'medium'}}</td>
+                <td>{{shipment.details}}</td>
+                <td>
+                    <div *ngIf="shipment.invoice">
+                        <a [routerLink]="['../invoice', shipment.invoice?.id ]" >{{shipment.invoice?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../shipment', shipment.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'shipment/'+ shipment.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'shipment/'+ shipment.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="shipments && shipments.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

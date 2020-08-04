@@ -1,0 +1,46 @@
+
+<div *ngIf="notification">
+    <h2><span jhiTranslate="gatewayApp.notification.detail.title">Notification</span> {{notification.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="gatewayApp.notification.date">Date</span></dt>
+        <dd>
+            <span>{{notification.date | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.notification.details">Details</span></dt>
+        <dd>
+            <span>{{notification.details}}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.notification.sentDate">Sent Date</span></dt>
+        <dd>
+            <span>{{notification.sentDate | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.notification.format">Format</span></dt>
+        <dd>
+            <span jhiTranslate="{{'gatewayApp.NotificationType.' + notification.format}}">{{notification.format}}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.notification.userId">User Id</span></dt>
+        <dd>
+            <span>{{notification.userId}}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.notification.productId">Product Id</span></dt>
+        <dd>
+            <span>{{notification.productId}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'notification/'+ notification.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

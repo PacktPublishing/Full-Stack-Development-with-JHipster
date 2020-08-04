@@ -1,0 +1,65 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myShipmentLabel" jhiTranslate="storeApp.shipment.home.createOrEditLabel">Create or edit a Shipment</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!shipment.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="shipment.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="storeApp.shipment.trackingCode" for="field_trackingCode">Tracking Code</label>
+            <input type="text" class="form-control" name="trackingCode" id="field_trackingCode"
+                [(ngModel)]="shipment.trackingCode" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="storeApp.shipment.date" for="field_date">Date</label>
+            <div class="d-flex">
+                <input id="field_date" type="datetime-local" class="form-control" name="date" [(ngModel)]="shipment.date"
+                required/>
+            </div>
+            <div [hidden]="!(editForm.controls.date?.dirty && editForm.controls.date?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.date?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.date?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="storeApp.shipment.details" for="field_details">Details</label>
+            <input type="text" class="form-control" name="details" id="field_details"
+                [(ngModel)]="shipment.details" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="storeApp.shipment.invoice" for="field_invoice">Invoice</label>
+            <select class="form-control" id="field_invoice" name="invoice" [(ngModel)]="shipment.invoice"  required>
+                <option *ngIf="!editForm.value.invoice" [ngValue]="null" selected></option>
+                <option [ngValue]="invoiceOption.id === shipment.invoice?.id ? shipment.invoice : invoiceOption" *ngFor="let invoiceOption of invoices; trackBy: trackInvoiceById">{{invoiceOption.code}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.invoice?.dirty && editForm.controls.invoice?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.invoice?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,24 @@
+
+{
+    "storeApp": {
+        "productCategory" : {
+            "home": {
+                "title": "ProductCategories",
+                "createLabel": "Créer un nouveau Product Category",
+                "createOrEditLabel": "Créer ou éditer un Product Category"
+            },
+            "created": "Un nouveau Product Category a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Product Category avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Product Category avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Product Category {{ id }} ?"
+            },
+            "detail": {
+                "title": "Product Category"
+            },
+            "name": "Name",
+            "description": "Description",
+            "product": "Product"
+        }
+    }
+}

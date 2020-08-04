@@ -1,0 +1,27 @@
+
+{
+    "storeApp": {
+        "productOrder" : {
+            "home": {
+                "title": "Product Orders",
+                "createLabel": "创建新 Product Order",
+                "createOrEditLabel": "创建或编辑 Product Order"
+            },
+            "created": "Product Order {{ param }} 创建成功",
+            "updated": "Product Order {{ param }} 更新成功",
+            "deleted": "Product Order {{ param }} 删除成功",
+            "delete": {
+                "question": "你确定要删除 Product Order {{ id }} 吗？"
+            },
+            "detail": {
+                "title": "Product Order"
+            },
+            "placedDate": "Placed Date",
+            "status": "Status",
+            "code": "Code",
+            "orderItem": "Order Item",
+            "invoice": "Invoice",
+            "customer": "Customer"
+        }
+    }
+}

@@ -1,0 +1,53 @@
+
+<div *ngIf="product">
+    <h2><span jhiTranslate="storeApp.product.detail.title">Product</span> {{product.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="storeApp.product.name">Name</span></dt>
+        <dd>
+            <span>{{product.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="storeApp.product.description">Description</span></dt>
+        <dd>
+            <span>{{product.description}}</span>
+        </dd>
+        <dt><span jhiTranslate="storeApp.product.price">Price</span></dt>
+        <dd>
+            <span>{{product.price}}</span>
+        </dd>
+        <dt><span jhiTranslate="storeApp.product.size">Size</span></dt>
+        <dd>
+            <span jhiTranslate="{{'storeApp.Size.' + product.size}}">{{product.size}}</span>
+        </dd>
+        <dt><span jhiTranslate="storeApp.product.image">Image</span></dt>
+        <dd>
+            <div *ngIf="product.image">
+                <a (click)="openFile(product.imageContentType, product.image)">
+                    <img [src]="'data:' + product.imageContentType + ';base64,' + product.image" style="max-width: 100%;" alt="product image"/>
+                </a>
+                {{product.imageContentType}}, {{byteSize(product.image)}}
+            </div>
+        </dd>
+        <dt><span jhiTranslate="storeApp.product.productCategory">Product Category</span></dt>
+        <dd>
+            <div *ngIf="product.productCategory">
+                <a [routerLink]="['/product-category', product.productCategory?.id]">{{product.productCategory?.name}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'product/'+ product.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

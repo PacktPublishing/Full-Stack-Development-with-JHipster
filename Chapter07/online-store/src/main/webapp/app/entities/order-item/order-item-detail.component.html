@@ -1,0 +1,46 @@
+
+<div *ngIf="orderItem">
+    <h2><span jhiTranslate="storeApp.orderItem.detail.title">Order Item</span> {{orderItem.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="storeApp.orderItem.quantity">Quantity</span></dt>
+        <dd>
+            <span>{{orderItem.quantity}}</span>
+        </dd>
+        <dt><span jhiTranslate="storeApp.orderItem.totalPrice">Total Price</span></dt>
+        <dd>
+            <span>{{orderItem.totalPrice}}</span>
+        </dd>
+        <dt><span jhiTranslate="storeApp.orderItem.status">Status</span></dt>
+        <dd>
+            <span jhiTranslate="{{'storeApp.OrderItemStatus.' + orderItem.status}}">{{orderItem.status}}</span>
+        </dd>
+        <dt><span jhiTranslate="storeApp.orderItem.product">Product</span></dt>
+        <dd>
+            <div *ngIf="orderItem.product">
+                <a [routerLink]="['/product', orderItem.product?.id]">{{orderItem.product?.name}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="storeApp.orderItem.order">Order</span></dt>
+        <dd>
+            <div *ngIf="orderItem.order">
+                <a [routerLink]="['/product-order', orderItem.order?.id]">{{orderItem.order?.code}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'order-item/'+ orderItem.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

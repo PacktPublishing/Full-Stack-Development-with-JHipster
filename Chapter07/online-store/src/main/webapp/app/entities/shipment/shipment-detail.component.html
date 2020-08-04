@@ -1,0 +1,40 @@
+
+<div *ngIf="shipment">
+    <h2><span jhiTranslate="storeApp.shipment.detail.title">Shipment</span> {{shipment.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="storeApp.shipment.trackingCode">Tracking Code</span></dt>
+        <dd>
+            <span>{{shipment.trackingCode}}</span>
+        </dd>
+        <dt><span jhiTranslate="storeApp.shipment.date">Date</span></dt>
+        <dd>
+            <span>{{shipment.date | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="storeApp.shipment.details">Details</span></dt>
+        <dd>
+            <span>{{shipment.details}}</span>
+        </dd>
+        <dt><span jhiTranslate="storeApp.shipment.invoice">Invoice</span></dt>
+        <dd>
+            <div *ngIf="shipment.invoice">
+                <a [routerLink]="['/invoice', shipment.invoice?.id]">{{shipment.invoice?.code}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'shipment/'+ shipment.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

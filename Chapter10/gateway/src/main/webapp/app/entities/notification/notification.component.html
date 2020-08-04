@@ -1,0 +1,68 @@
+<div>
+    <h2>
+        <span jhiTranslate="gatewayApp.notification.home.title">Notifications</span>
+        <button class="btn btn-primary float-right jh-create-entity create-notification" [routerLink]="['/', { outlets: { popup: ['notification-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="gatewayApp.notification.home.createLabel">
+            Create new Notification
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="notifications">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="gatewayApp.notification.date">Date</span></th>
+            <th><span jhiTranslate="gatewayApp.notification.details">Details</span></th>
+            <th><span jhiTranslate="gatewayApp.notification.sentDate">Sent Date</span></th>
+            <th><span jhiTranslate="gatewayApp.notification.format">Format</span></th>
+            <th><span jhiTranslate="gatewayApp.notification.userId">User Id</span></th>
+            <th><span jhiTranslate="gatewayApp.notification.productId">Product Id</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let notification of notifications ;trackBy: trackId">
+                <td><a [routerLink]="['../notification', notification.id ]">{{notification.id}}</a></td>
+                <td>{{notification.date | date:'medium'}}</td>
+                <td>{{notification.details}}</td>
+                <td>{{notification.sentDate | date:'medium'}}</td>
+                <td jhiTranslate="{{'gatewayApp.NotificationType.' + notification.format}}">{{notification.format}}</td>
+                <td>{{notification.userId}}</td>
+                <td>{{notification.productId}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../notification', notification.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'notification/'+ notification.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'notification/'+ notification.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

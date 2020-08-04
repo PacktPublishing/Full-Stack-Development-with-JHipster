@@ -1,0 +1,103 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myOrderItemLabel" jhiTranslate="storeApp.orderItem.home.createOrEditLabel">Create or edit a Order Item</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!orderItem.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="orderItem.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="storeApp.orderItem.quantity" for="field_quantity">Quantity</label>
+            <input type="number" class="form-control" name="quantity" id="field_quantity"
+                [(ngModel)]="orderItem.quantity" required min="0"/>
+            <div [hidden]="!(editForm.controls.quantity?.dirty && editForm.controls.quantity?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.quantity?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.quantity?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: 0 }">
+                    This field should be at least 0.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.quantity?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="storeApp.orderItem.totalPrice" for="field_totalPrice">Total Price</label>
+            <input type="number" class="form-control" name="totalPrice" id="field_totalPrice"
+                [(ngModel)]="orderItem.totalPrice" required min="0"/>
+            <div [hidden]="!(editForm.controls.totalPrice?.dirty && editForm.controls.totalPrice?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.totalPrice?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.totalPrice?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: 0 }">
+                    This field should be at least 0.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.totalPrice?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="storeApp.orderItem.status" for="field_status">Status</label>
+            <select class="form-control" name="status" [(ngModel)]="orderItem.status" id="field_status"  required>
+                <option value="AVAILABLE">{{'storeApp.OrderItemStatus.AVAILABLE' | translate}}</option>
+                <option value="OUT_OF_STOCK">{{'storeApp.OrderItemStatus.OUT_OF_STOCK' | translate}}</option>
+                <option value="BACK_ORDER">{{'storeApp.OrderItemStatus.BACK_ORDER' | translate}}</option>
+            </select>
+            <div [hidden]="!(editForm.controls.status?.dirty && editForm.controls.status?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.status?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="storeApp.orderItem.product" for="field_product">Product</label>
+            <select class="form-control" id="field_product" name="product" [(ngModel)]="orderItem.product"  required>
+                <option *ngIf="!editForm.value.product" [ngValue]="null" selected></option>
+                <option [ngValue]="productOption.id === orderItem.product?.id ? orderItem.product : productOption" *ngFor="let productOption of products; trackBy: trackProductById">{{productOption.name}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.product?.dirty && editForm.controls.product?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.product?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="storeApp.orderItem.order" for="field_order">Order</label>
+            <select class="form-control" id="field_order" name="order" [(ngModel)]="orderItem.order"  required>
+                <option *ngIf="!editForm.value.order" [ngValue]="null" selected></option>
+                <option [ngValue]="productOrderOption.id === orderItem.order?.id ? orderItem.order : productOrderOption" *ngFor="let productOrderOption of productorders; trackBy: trackProductOrderById">{{productOrderOption.code}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.order?.dirty && editForm.controls.order?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.order?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>
