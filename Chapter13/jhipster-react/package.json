@@ -9,7 +9,7 @@
   ],
   "dependencies": {
     "availity-reactstrap-validation": "2.0.0-alpha.1",
-    "axios": "0.18.0",
+    "axios": "0.21.1",
     "bootstrap": "4.0.0",
     "loaders.css": "0.1.2",
     "lodash": "4.17.5",
