@@ -80,7 +80,7 @@
     "tslint-loader": "3.5.3",
     "typescript": "2.5.3",
     "sass-loader": "6.0.6",
-    "node-sass": "4.5.3",
+    "node-sass": "7.0.0",
     "postcss-loader": "2.0.9",
     "uglifyjs-webpack-plugin": "1.1.5",
     "webpack": "3.10.0",
